@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 360px;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  border: 1px solid #202020;
+  border-radius: 4px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.input {
+  width: 260px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.error {
+  margin-top: 10px;
+  color: red;
+  font-size: 12px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}

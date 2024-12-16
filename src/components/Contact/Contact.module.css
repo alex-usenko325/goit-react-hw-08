@@ -1,0 +1,25 @@
+.contact {
+  display: flex;
+  padding: 10px;
+  border: 1px solid #202020;
+  border-radius: 4px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.iconText {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.button:hover {
+  background-color: #e53935;
+}
