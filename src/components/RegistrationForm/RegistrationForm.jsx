@@ -12,23 +12,24 @@ const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const initialValues = {
-    username: "",
+    name: "",
     email: "",
     password: "",
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .min(3, "Username must be at least 3 characters")
-      .required("Username is required"),
+    name: Yup.string()
+      .min(3, "Name must be at least 3 characters")
+      .required("Name is required"),
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
     setIsSubmitting(true);
     try {
       const action = await dispatch(register(values));
@@ -53,16 +54,16 @@ const RegisterForm = () => {
         <Form>
           <h1>Registration</h1>
           <div>
-            <label htmlFor="username">Username</label>{" "}
+            <label htmlFor="name">Name</label>
             <Field
               type="text"
-              id="username"
-              name="username"
-              placeholder="Username"
-              autoComplete="username"
+              id="name"
+              name="name"
+              placeholder="Name"
+              autoComplete="name"
             />
             <ErrorMessage
-              name="username"
+              name="name"
               component="div"
               className={s["error-message"]}
             />

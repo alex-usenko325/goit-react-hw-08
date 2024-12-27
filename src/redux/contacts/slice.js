@@ -55,4 +55,4 @@ export const selectFilteredContacts = (state) => {
 };
 
 export const selectContacts = (state) => state.contacts.items;
-export default contactsSlice.reducer;
+export const contactReducer = contactsSlice.reducer;

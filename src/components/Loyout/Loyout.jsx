@@ -1,11 +1,13 @@
-// src/components/Layout/Layout.jsx
-const Layout = ({ children }) => {
+import { Outlet } from "react-router-dom";
+import Header from "../../pages/Header/Header";
+
+const Loyout = () => {
   return (
     <div>
-      <header>{/* Ваш header тут */}</header>
-      <main>{children}</main>
+      <Header />
+      <Outlet />
     </div>
   );
 };
 
-export default Layout; // Це default export
+export default Loyout;

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import s from "./HomePage.module.css";
+import s from "./Home.module.css";
 
-const HomePage = () => {
+const Home = () => {
   return (
     <div className={s.container}>
-      <h1 className={s.heading}>Welcome to the Contact Book!</h1>
+      <h1 className={s.title}>Welcome to the Contact Book!</h1>
       <p className={s.paragraph}>
         This app will help you store and organize your contacts.
       </p>
@@ -23,4 +23,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
