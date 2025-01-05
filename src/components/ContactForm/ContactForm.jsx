@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 import { useState } from "react";
 import { TextField, Button, Typography } from "@mui/material";
-import toast from "react-hot-toast"; // Імпортуємо бібліотеку
+import toast from "react-hot-toast";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {

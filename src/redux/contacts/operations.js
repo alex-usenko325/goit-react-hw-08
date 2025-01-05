@@ -13,14 +13,14 @@ const handleRequest = async (request, thunkAPI) => {
   }
 };
 
-export const fetchContacts = createAsyncThunk(
+const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
   async (_, thunkAPI) => {
     return await handleRequest(() => api.get("/contacts"), thunkAPI);
   }
 );
 
-export const addContact = createAsyncThunk(
+const addContact = createAsyncThunk(
   "contacts/addContact",
   async ({ name, number }, thunkAPI) => {
     return await handleRequest(
@@ -30,7 +30,7 @@ export const addContact = createAsyncThunk(
   }
 );
 
-export const deleteContact = createAsyncThunk(
+const deleteContact = createAsyncThunk(
   "contacts/deleteContact",
   async (id, thunkAPI) => {
     try {
@@ -44,3 +44,5 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
+
+export { fetchContacts, addContact, deleteContact };
