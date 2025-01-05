@@ -1,12 +1,10 @@
-import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { PuffLoader } from "react-spinners"; // Використовуємо PuffLoader як приклад
-
-const PrivateRoute = ({ children }) => {
+import { Navigate, Outlet } from "react-router-dom";
+import { PuffLoader } from "react-spinners";
+const PrivateRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isRefreshing = useSelector((state) => state.auth.isRefreshing);
 
-  // Якщо триває перевірка авторизації, показуємо індикатор завантаження
   if (isRefreshing) {
     return (
       <div
@@ -22,7 +20,7 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
