@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { PuffLoader } from "react-spinners";
+import { useEffect } from "react";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
@@ -6,8 +9,34 @@ import Login from "./pages/Login/Login";
 import Contacts from "./pages/Contacts/Contacts";
 import PrivateRoute from "./routes/PrivateRoute";
 import RestrictedRoute from "./routes/RestrictedRoute";
+import { refreshUser } from "./redux/auth/operations";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isRefreshing = useSelector((state) => state.auth.isRefreshing);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      dispatch(refreshUser());
+    }
+  }, [dispatch, isLoggedIn]);
+
+  if (isRefreshing) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <PuffLoader color="#36d7b7" size={60} />
+      </div>
+    );
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -15,7 +44,7 @@ const App = () => {
         <Route
           path="contacts"
           element={
-            <PrivateRoute>
+            <PrivateRoute isLoggedIn={isLoggedIn}>
               <Contacts />
             </PrivateRoute>
           }
@@ -24,7 +53,7 @@ const App = () => {
       <Route
         path="login"
         element={
-          <RestrictedRoute>
+          <RestrictedRoute isLoggedIn={isLoggedIn}>
             <Login />
           </RestrictedRoute>
         }
@@ -32,7 +61,7 @@ const App = () => {
       <Route
         path="register"
         element={
-          <RestrictedRoute>
+          <RestrictedRoute isLoggedIn={isLoggedIn}>
             <Registration />
           </RestrictedRoute>
         }
