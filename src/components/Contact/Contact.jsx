@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations";
 import { useState } from "react";
-import s from "./Contact.module.css";
 import { HiPhone, HiUser } from "react-icons/hi";
+import { Button } from "@mui/material";
+import styles from "./Contact.module.css";
 
 const Contact = ({ id, name, number }) => {
   const dispatch = useDispatch();
@@ -20,21 +21,27 @@ const Contact = ({ id, name, number }) => {
   };
 
   return (
-    <li className={s.contact}>
-      <div className={s.container}>
-        <span className={s.iconText}>
-          <HiUser className={s.userIcon} size="24" />
+    <div className={styles.contact}>
+      <div className={styles.contactInfo}>
+        <div className={styles.contactName}>
+          <HiUser style={{ marginRight: "10px" }} size="24" />
           {name}
-        </span>
-        <span className={s.iconText}>
-          <HiPhone className={s.phoneIcon} size="24" />
+        </div>
+        <div className={styles.contactNumber}>
+          <HiPhone style={{ marginRight: "10px" }} size="24" />
           {number}
-        </span>
+        </div>
       </div>
-      <button className={s.button} onClick={handleDelete} disabled={isDeleting}>
+      <Button
+        onClick={handleDelete}
+        disabled={isDeleting}
+        variant="contained"
+        color="error"
+        className={styles.deleteButton}
+      >
         {isDeleting ? "Deleting..." : "Delete"}
-      </button>
-    </li>
+      </Button>
+    </div>
   );
 };
 

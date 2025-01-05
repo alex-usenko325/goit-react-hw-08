@@ -4,7 +4,7 @@ import { register } from "../../redux/auth/operations";
 import toast from "react-hot-toast";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import s from "./RegistrationForm.module.css";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import ReactLoading from "react-loading";
 
 const RegisterForm = () => {
@@ -45,69 +45,102 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className={s["form-container"]}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#f4f6f9",
+        padding: "20px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        width: "100%",
+        maxWidth: "400px",
+      }}
+    >
+      <Typography variant="h5" align="center" sx={{ marginBottom: 2 }}>
+        Register
+      </Typography>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form>
-          <h1>Registration</h1>
-          <div>
-            <label htmlFor="name">Name</label>
+        <Form style={{ width: "100%" }}>
+          <Box sx={{ marginBottom: 2 }}>
             <Field
+              name="name"
               type="text"
-              id="name"
-              name="name"
-              placeholder="Name"
-              autoComplete="name"
+              as={TextField}
+              label="Name"
+              fullWidth
+              variant="outlined"
             />
             <ErrorMessage
               name="name"
               component="div"
-              className={s["error-message"]}
+              className="error-message"
+              style={{ color: "red", fontSize: "12px" }}
             />
-          </div>
-          <div>
-            <label htmlFor="email">Email</label>
+          </Box>
+
+          <Box sx={{ marginBottom: 2 }}>
             <Field
+              name="email"
               type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              autoComplete="username"
+              as={TextField}
+              label="Email"
+              fullWidth
+              variant="outlined"
             />
             <ErrorMessage
               name="email"
               component="div"
-              className={s["error-message"]}
+              className="error-message"
+              style={{ color: "red", fontSize: "12px" }}
             />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
+          </Box>
+
+          <Box sx={{ marginBottom: 2 }}>
             <Field
-              type="password"
-              id="password"
               name="password"
-              placeholder="Password"
-              autoComplete="current-password"
+              type="password"
+              as={TextField}
+              label="Password"
+              fullWidth
+              variant="outlined"
             />
             <ErrorMessage
               name="password"
               component="div"
-              className={s["error-message"]}
+              className="error-message"
+              style={{ color: "red", fontSize: "12px" }}
             />
-          </div>
-          <button type="submit" disabled={isSubmitting}>
+          </Box>
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{
+              padding: "10px",
+              fontSize: "14px",
+              textTransform: "none",
+              marginTop: 1,
+            }}
+            disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <ReactLoading type="spin" color="#fff" height={16} width={16} />
             ) : (
               "Register"
             )}
-          </button>
+          </Button>
         </Form>
       </Formik>
-    </div>
+    </Box>
   );
 };
 

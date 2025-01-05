@@ -1,9 +1,11 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
+import { addContact } from "../../redux/contacts/operations";
 import { useState } from "react";
-import s from "./ContactForm.module.css";
+import { TextField, Button, Typography } from "@mui/material";
+import toast from "react-hot-toast"; // Імпортуємо бібліотеку
+import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -23,12 +25,18 @@ const ContactForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       setError(null);
+
       await dispatch(
         addContact({ name: values.name, number: values.number })
       ).unwrap();
+
+      toast.success("Contact added successfully!");
+
       resetForm();
     } catch (err) {
       setError("Failed to add contact. Please try again.");
+
+      toast.error("Failed to add contact. Please try again.");
       console.error("Error adding contact:", err);
     }
   };
@@ -39,26 +47,54 @@ const ContactForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form className={s.form}>
-        <div className={s.inputGroup}>
-          <label htmlFor="name" className={s.label}>
-            Name
-          </label>
-          <Field type="text" name="name" id="name" className={s.input} />
-          <ErrorMessage name="name" component="div" className={s.error} />
-        </div>
-        <div className={s.inputGroup}>
-          <label htmlFor="number" className={s.label}>
-            Number
-          </label>
-          <Field type="text" name="number" id="number" className={s.input} />
-          <ErrorMessage name="number" component="div" className={s.error} />
-        </div>
-        {error && <div className={s.error}>{error}</div>}
-        <button type="submit" className={s.button}>
-          Add Contact
-        </button>
-      </Form>
+      {({ handleChange, handleBlur, values }) => (
+        <Form className={styles.form}>
+          <Typography variant="h6" align="center" className={styles.title}>
+            Add New Contact
+          </Typography>
+
+          <TextField
+            fullWidth
+            id="name"
+            name="name"
+            label="Name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            helperText={<ErrorMessage name="name" />}
+            variant="outlined"
+            className={styles.input}
+          />
+
+          <TextField
+            fullWidth
+            id="number"
+            name="number"
+            label="Number"
+            value={values.number}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            helperText={<ErrorMessage name="number" />}
+            variant="outlined"
+            className={styles.input}
+          />
+
+          {error && (
+            <Typography color="error" className={styles.error}>
+              {error}
+            </Typography>
+          )}
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={styles.button}
+          >
+            Add Contact
+          </Button>
+        </Form>
+      )}
     </Formik>
   );
 };

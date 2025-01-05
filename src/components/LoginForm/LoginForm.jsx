@@ -1,10 +1,9 @@
-// src/components/LoginForm/LoginForm.jsx
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/auth/operations";
-import toast from "react-hot-toast"; // для повідомлень
+import toast from "react-hot-toast";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import s from "./LoginForm.module.css"; // імпортуємо стилі
+import { TextField, Button, Box, Typography } from "@mui/material";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -16,59 +15,98 @@ const LoginForm = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Невірний формат email")
-      .required("Email є обов'язковим"),
-    password: Yup.string().required("Пароль є обов'язковим"),
+      .email("Invalid email format")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
   });
 
   const handleSubmit = async (values) => {
     try {
-      const action = await dispatch(login(values)); // Викликає асинхронну операцію логіну
+      const action = await dispatch(login(values));
       if (action.type === "auth/login/fulfilled") {
-        toast.success("Успішний вхід!");
-        // Логіка після успішного входу (наприклад, редирект на головну сторінку)
+        toast.success("Login successful!");
       }
     } catch {
-      toast.error("Невірний email або пароль!");
+      toast.error("Invalid email or password!");
     }
   };
 
   return (
-    <div className={s["form-container"]}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#f4f6f9",
+        padding: "20px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        width: "100%",
+        maxWidth: "400px",
+      }}
+    >
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form>
-          <h1>Вхід</h1>
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field type="email" id="email" name="email" placeholder="Email" />
+        <Form style={{ width: "100%" }}>
+          <Typography variant="h5" align="center" sx={{ marginBottom: 2 }}>
+            Log In
+          </Typography>
+
+          <Box sx={{ marginBottom: 2 }}>
+            <Field
+              name="email"
+              type="email"
+              as={TextField}
+              label="Email"
+              fullWidth
+              variant="outlined"
+            />
             <ErrorMessage
               name="email"
               component="div"
-              className={s["error-message"]}
+              className="error-message"
+              style={{ color: "red", fontSize: "12px" }}
             />
-          </div>
-          <div>
-            <label htmlFor="password">Пароль</label>
+          </Box>
+
+          <Box sx={{ marginBottom: 2 }}>
             <Field
-              type="password"
-              id="password"
               name="password"
-              placeholder="Пароль"
+              type="password"
+              as={TextField}
+              label="Password"
+              fullWidth
+              variant="outlined"
             />
             <ErrorMessage
               name="password"
               component="div"
-              className={s["error-message"]}
+              className="error-message"
+              style={{ color: "red", fontSize: "12px" }}
             />
-          </div>
-          <button type="submit">Увійти</button>
+          </Box>
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{
+              padding: "10px",
+              fontSize: "14px",
+              textTransform: "none",
+              marginTop: 1,
+            }}
+          >
+            Log In
+          </Button>
         </Form>
       </Formik>
-    </div>
+    </Box>
   );
 };
+
 export default LoginForm;

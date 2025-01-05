@@ -1,11 +1,17 @@
-.searchBox {
+.container {
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
-  font-weight: bold;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 .input {
-  padding: 8px;
-  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
 }

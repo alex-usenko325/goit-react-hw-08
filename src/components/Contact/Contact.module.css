@@ -1,25 +1,38 @@
 .contact {
   display: flex;
-  padding: 10px;
-  border: 1px solid #202020;
-  border-radius: 4px;
   justify-content: space-between;
   align-items: center;
+  min-width: 300px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
-.container {
+.contactInfo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 5px;
 }
 
-.iconText {
+.contactName {
   display: flex;
   align-items: center;
-  gap: 5px;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 16px;
 }
 
-.button:hover {
-  background-color: #e53935;
+.contactNumber {
+  display: flex;
+  align-items: center;
+  color: #555;
+  font-size: 14px;
+}
+
+.deleteButton {
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
