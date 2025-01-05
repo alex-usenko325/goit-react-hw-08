@@ -9,7 +9,6 @@ import Contacts from "./pages/Contacts/Contacts";
 import PrivateRoute from "./routes/PrivateRoute";
 import RestrictedRoute from "./routes/RestrictedRoute";
 import { refreshUser } from "./redux/auth/operations";
-import { PuffLoader } from "react-spinners";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,18 +22,7 @@ const App = () => {
   }, [dispatch, isLoggedIn, isRefreshing]);
 
   if (isRefreshing) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <PuffLoader color="#36d7b7" size={60} />
-      </div>
-    );
+    return null;
   }
 
   return (
